@@ -34,10 +34,10 @@ def my_function(draw_images: bool = True):
             imgpoints.append(corners2)
             found_imgs += 1
             # Draw and display the corners
-            if (draw_images == True):
-                cv.drawChessboardCorners(img, (7, 9), corners2, ret)
-                cv.imshow('img', img)
-                cv.waitKey(500)
+            # if (draw_images == True):
+            #     cv.drawChessboardCorners(img, (7, 9), corners2, ret)
+            #     cv.imshow('img', img)
+            #     cv.waitKey(500)
     # print("corners2=", corners2)
     # cv.Point
     img = cv.imread(fname)
@@ -97,7 +97,7 @@ def my_function(draw_images: bool = True):
         return corners2
 
 
-corners = my_function(False)
+corners = my_function(True)
 corners = corners[:, 0, :]
 print("len=", len(corners))
 print("shape=", corners.shape)
