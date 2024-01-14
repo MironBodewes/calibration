@@ -11,15 +11,15 @@ from glob import glob
 from os import path
 
 SPACE_KEY_PRESS = 32
-directory="./data/"
-
-print("moving old chessboards to another folder")
-_datetime=datetime.datetime.now()
-shutil.move("./data/","./data/"+str(_datetime))
-
+DIRECTORY="./data/"
+if os.path.exists(DIRECTORY):
+    print("moving old chessboards to another folder")
+    _datetime=datetime.datetime.now()
+    shutil.move("./data/","./databefore"+str(_datetime)+"/")
+# os.mkdir(DIRECTORY)
 i=100
 cv2.namedWindow("Camera Calibration", cv2.WINDOW_NORMAL)
-cam = cv2.VideoCapture(3)
+cam = cv2.VideoCapture(2)
 while True:
     ret, img_orig = cam.read()
     assert ret, 'Camera read failed'

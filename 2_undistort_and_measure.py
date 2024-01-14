@@ -8,6 +8,7 @@ criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 objp = np.zeros((9*7, 3), np.float32)
 objp[:, :2] = np.mgrid[0:7, 0:9].T.reshape(-1, 2)
 # Arrays to store object points and image points from all the images.
+# print(objp)
 
 
 def my_function(draw_images: bool = True):
@@ -38,13 +39,21 @@ def my_function(draw_images: bool = True):
             #     cv.drawChessboardCorners(img, (7, 9), corners2, ret)
             #     cv.imshow('img', img)
             #     cv.waitKey(500)
-    # print("corners2=", corners2)
-    # cv.Point
+
+    #
+    print(corners2[6][0])
+    print(corners2[0][0])
     img = cv.imread(fname)
     cv.imwrite("distorted.png", img)
+    x,y=corners2[0][0]
+    x=int(x)
+    y=int(y)
+    x2,y2=corners2[6][0]
+    x2=int(x2)
+    y2=int(y2)
     if (draw_images == True):
-        cv.line(img, (978, 525), (1044, 211), 2, 3)
-        cv.imshow("halllo", img)
+        cv.line(img, (x, y), (x2, y2), 2, 3)
+        cv.imshow("distorted with line", img)
         cv.waitKey(5000)
     cv.destroyAllWindows()
 
@@ -53,8 +62,8 @@ def my_function(draw_images: bool = True):
         objpoints, dtype=np.float32), np.array(imgpoints, dtype=np.float32)
     ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(
         objpoints, imgpoints, gray.shape[::-1], None, None)
-    print('Camera Matrix', mtx)
-    print('Distortion Mat', dist)
+    print('Camera Matrix:\n', mtx)
+    print('Distortion Matrix', dist)
 
     img = cv.imread(fname)
     h,  w = img.shape[:2]
@@ -104,6 +113,8 @@ print("shape=", corners.shape)
 
 
 def average_distance_20mm_checkerboard():
+    """ calculates the average distance measured in pixels between points
+    """
     columns = 9
     rows = 7
     diffs = []
@@ -119,7 +130,9 @@ def average_distance_20mm_checkerboard():
             else:  # if the next item is on a different column
                 pass  # skip this distance measurement
     return np.mean(diffs)
-pixel_per_cm=average_distance_20mm_checkerboard()/2
-print("pixel per cm=",pixel_per_cm) # /2 because there are 20 mm per square
-with open("pixel_per_cm.txt","w+") as file:
+
+
+pixel_per_cm = average_distance_20mm_checkerboard()/2
+print("pixel per cm=", pixel_per_cm)  # /2 because there are 20 mm per square
+with open("pixel_per_cm.txt", "w+") as file:
     file.write(str(pixel_per_cm))
