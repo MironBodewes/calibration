@@ -1,9 +1,10 @@
 ### how to use:
 1. start 1_make_images.py and make some images (will be in `<workingdirectory>/data/`)  
 you could also just make the images yourself with another program, but there is a naming convention.
-1. start 2_undistort_and_measure.   
+1. start Distanzmessung.ipynb 
 this will compute the camera matrix and distortion matrix with the intrinsic and extrinsic values from the images you made.
-1. start Distanzmessung.ipynb
+and other things...
+
 1. result will be shown at the end of the notebook
 
 
